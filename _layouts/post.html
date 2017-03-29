@@ -20,9 +20,13 @@ comments: false
 	</div>
 </article>
 
+<div>
 	<div class="comments-wrapper">
-		<button>Click here to load comments</button>
+		<button>Click here to load comments 
+		</button>
+		<span class="disqus-comment-count"> ... </span>
 	</div>
+</div>
 
 	<script>
 		var el = document.querySelector('.comments-wrapper');
@@ -32,6 +36,12 @@ comments: false
 			var d = document.createElement('div');
 			d.id = 'disqus_thread';
 			el.appendChild(d);
+
+			var disqus_config = function () {
+				this.page.url = '{{ page.url }}';  // Replace PAGE_URL with your page's canonical URL variable
+				this.page.identifier = '{{ page.id }}'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+			};
+
 			/* * * DON'T EDIT BELOW THIS LINE * * */
 			
 			var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
@@ -41,4 +51,17 @@ comments: false
 
 		el.addEventListener('click', loadDisqus);
 
+	</script>
+
+	<script>
+		window.setTimeout(function() {
+			// load 		<script id="dsq-count-scr" src="" async>< /script>
+			var countScript = document.createElement('script');
+			document.body.appendChild(countScript); //or something of the likes
+			countScript.src = '//pauldambragithubio.disqus.com/count.js';
+			countScript.onload = function () {
+				console.log('boo!');
+			    DISQUSWIDGETS.getCount({reset: true});
+			};
+		}, 2500)
 	</script>
